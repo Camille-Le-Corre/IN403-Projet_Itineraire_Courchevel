@@ -757,7 +757,7 @@ graphe = {
         (178, 164, 'tc') : [2.5, 'la tania'],
         (178, 175, 'tf') : [1.6, 'gros murger'],
         (179, 22, 'tf') : [0.3, 'troika'],
-        (179, 178, 'v') : [0.4, 'plan fontaine'],    #a verifier pour le nom
+        (179, 178, 'v') : [0.4, 'plan fontaine'],
         (180, 181, 'r') : [0.8, 'murettes'],
         (181, 157, 'tc') : [2.4, 'praz'],
         (181, 162, 'tc') : [2.1, 'foret'],
@@ -1597,7 +1597,6 @@ def application():
     # Si l'utilisateur vient de lancer l'application, il visionnera l'image d'accueil
     if premier_acces == 1:
         accueil_courch = Image.open("bienvenue_courchevel.png")
-        #accueil_courch = Image.open("ProjetIN403-Courchevel/bienvenue_courchevel.png")
         img = ImageTk.PhotoImage(accueil_courch)
         can = tk.Canvas(w_accueil, width=img.width(), height=img.height())
         image_id = can.create_image(0, 0, anchor='nw', image=img)
@@ -1625,7 +1624,6 @@ def application():
 
         # Affichage du plan
         plan_station = Image.open("plan_station2.png")
-        #plan_station = Image.open("ProjetIN403-Courchevel/plan_station2.png")
         img = ImageTk.PhotoImage(plan_station)
         canvas = tk.Canvas(w_plan_station, width=img.width(), height=img.height())
         canvas.create_image(0, 0, anchor='nw', image=img)
