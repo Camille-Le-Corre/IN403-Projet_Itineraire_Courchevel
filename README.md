@@ -24,16 +24,19 @@ Le skieur a la possibilité d’indiquer son niveau (débutant, intermédiaire o
 # Le graphe
 
 Dans un premier temps, nous avons défini les sommets du graphe. Chaque intersection entre des pistes, chaque bifurcation d’une piste, ou bien un début ou une fin d’une remontée mécanique représente un sommet. Nous en avons trouvé 188 et les avons numérotés. Chaque sommet possède également un nom suivant une nomenclature précise, afin de pouvoir décrire au skieur un lieu lors de l’affichage de l’itinéraire (ceci est détaillé par la suite).
+
 Les arcs représentent des pistes ou des remontées mécaniques, que le skieur peut emprunter pour se rendre d’un sommet à un autre.
 Le graphe obtenu est donc un graphe orienté, car on ne peut que descendre une piste et une remontée mécanique ne peut être prise que dans un seul sens.
+
 Ce graphe est également connexe. Cependant, il n’est pas fortement connexe car le sommet 185 (représentant le village de St Bon 1100m) est accessible par une piste rouge mais aucun arc ne part de ce sommet. On peut supposer que dans la réalité, on a des navettes qui permettent de rejoindre Courchevel-Le praz 1300m qui se trouve à proximité.
 
 
 # Stockage des données du graphe
 
 Le dessin du graphe est une représentation visuelle, mais qui ne peut pas être utilisée par notre algorithme. Pour stocker les données issues du graphe, nous avons décidé d’utiliser un dictionnaire dans lequel chaque élément est un arc du graphe, qui contient plusieurs informations comme le nom de la piste ou de la remontée mécanique, la couleur de la piste, sa longueur, le type de remontée, … Au total, le graphe contient 361 arcs. Ces informations seront par la suite utilisées par l’algorithme pour trouver le plus court chemin, puis pour afficher l’itinéraire à emprunter au skieur.
-Dans ce dictionnaire, les clés, uniques, sont un tuple de 3 valeurs : (sA, sB, type) avec sB un successeur de sA et le type correspond à la couleur de la piste ou au type de remontée mécanique de l’arc (sA, sB). Ce type est nécessaire pour rendre les clés du dictionnaire uniques car il existe des pistes différentes, partant d’un même sommet et arrivant à un autre même sommet. Par exemple, il y a une piste rouge et une piste noire entre les sommets 63 et
-62.
+
+Dans ce dictionnaire, les clés, uniques, sont un tuple de 3 valeurs : (sA, sB, type) avec sB un successeur de sA et le type correspond à la couleur de la piste ou au type de remontée mécanique de l’arc (sA, sB). Ce type est nécessaire pour rendre les clés du dictionnaire uniques car il existe des pistes différentes, partant d’un même sommet et arrivant à un autre même sommet. Par exemple, il y a une piste rouge et une piste noire entre les sommets 63 et 62.
+
 Chaque clé est associée à une valeur, qui est une liste de 2 éléments : [longueur_arc, nom_arc]. Le poids d’un arc (sA, sB) correspond au temps nécessaire pour aller du sommet sA au sommet sB. Le temps de descente d’une piste est défini en fonction de sa longueur, de sa couleur et du niveau du skieur. En effet, plus une piste est difficile et plus les skieurs téméraires iront vite tandis que les débutants iront lentement. Pour chaque couleur de piste, un temps de descente est donné pour un skieur de niveau intermédiaire. A partir de ce temps de base, un coefficient de vitesse est appliqué pour obtenir les temps des skieurs de niveau débutant ou téméraire.
 
 Pour plus de réalisme, nous avons décidé de faire jouer également la longueur de la piste. Les temps indiqués dans ce tableau sont les temps nécessaires pour parcourir une unité de piste. Une unité correspond à la longueur de la piste tothor (près du téléski Epicéa, du sommet 159 à 153). Ainsi, pour une piste environ 2 fois plus grande que la piste tothor, il faudra multiplier les temps par 2.
